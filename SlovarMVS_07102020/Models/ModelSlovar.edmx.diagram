@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b98a6ee89ac34e6b9fa9741ef985ded4" Name="Diagram1">
+        <EntityTypeShape EntityType="SlovarModel.AssociaciaPerson" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.AssotsiatsiaMain" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.Person" Width="1.5" PointX="0.625" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.slovar" Width="1.5" PointX="8.875" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.slovar1" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.SlovarPerson" Width="1.5" PointX="2.875" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.SlovarThema" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SlovarModel.Thema" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SlovarModel.AssociaciaPerson_PersonAssociaciaPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.AssociaciaPerson_slovar1AssociaciaPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.AssotsiatsiaMain_slovar1AssociaciaMain" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.SlovarPerson_PersonSlovarPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.SlovarPerson_slovar1SlovarPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.SlovarThema_slovar1SlovarThema" ManuallyRouted="false" />
+        <AssociationConnector Association="SlovarModel.SlovarThema_ThemaSlovarThema" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

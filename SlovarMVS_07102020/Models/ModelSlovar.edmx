@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище SlovarModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssociaciaPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slovarid" Type="int" />
+          <Property Name="AssociaciaPerson" Type="nvarchar(max)" />
+          <Property Name="Person" Type="int" />
+          <Property Name="VotePerson" Type="int" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssotsiatsiaMain">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SlovarId" Type="int" />
+          <Property Name="Assotsiatsia" Type="nvarchar(max)" />
+          <Property Name="VoteMain" Type="int" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="idPerson" />
+          </Key>
+          <Property Name="idPerson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="255" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" />
+          <Property Name="year" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="ScurityStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="slovar">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="angl" Type="nvarchar" MaxLength="255" />
+          <Property Name="rus" Type="nvarchar" MaxLength="255" />
+          <Property Name="asociacia1" Type="nvarchar" MaxLength="255" />
+          <Property Name="asociacia2" Type="nvarchar" MaxLength="255" />
+          <Property Name="my" Type="bit" />
+          <Property Name="thema" Type="int" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="slovar1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="angl" Type="nvarchar" MaxLength="255" />
+          <Property Name="rus" Type="nvarchar" MaxLength="255" />
+          <Property Name="transc" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SlovarPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="slovarid" Type="int" />
+        </EntityType>
+        <EntityType Name="SlovarThema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SlovarId" Type="int" />
+          <Property Name="ThemaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Thema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Thema" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="AssociaciaPerson$PersonAssociaciaPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="AssociaciaPerson" Type="Self.AssociaciaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="idPerson" />
+            </Principal>
+            <Dependent Role="AssociaciaPerson">
+              <PropertyRef Name="Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssociaciaPerson$slovar1AssociaciaPerson">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssociaciaPerson" Type="Self.AssociaciaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AssociaciaPerson">
+              <PropertyRef Name="Slovarid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssotsiatsiaMain$slovar1AssociaciaMain">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssotsiatsiaMain" Type="Self.AssotsiatsiaMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AssotsiatsiaMain">
+              <PropertyRef Name="SlovarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarPerson$PersonSlovarPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="SlovarPerson" Type="Self.SlovarPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="idPerson" />
+            </Principal>
+            <Dependent Role="SlovarPerson">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarPerson$slovar1SlovarPerson">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1" />
+          <End Role="SlovarPerson" Type="Self.SlovarPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarPerson">
+              <PropertyRef Name="slovarid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarThema$slovar1SlovarThema">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1" />
+          <End Role="SlovarThema" Type="Self.SlovarThema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarThema">
+              <PropertyRef Name="SlovarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarThema$ThemaSlovarThema">
+          <End Role="Thema" Type="Self.Thema" Multiplicity="0..1" />
+          <End Role="SlovarThema" Type="Self.SlovarThema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarThema">
+              <PropertyRef Name="ThemaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SlovarModelContainer">
+          <EntitySet Name="AssociaciaPerson" EntityType="Self.AssociaciaPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssotsiatsiaMain" EntityType="Self.AssotsiatsiaMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="slovar" EntityType="Self.slovar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="slovar1" EntityType="Self.slovar1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SlovarPerson" EntityType="Self.SlovarPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SlovarThema" EntityType="Self.SlovarThema" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Thema" EntityType="Self.Thema" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="AssociaciaPerson$PersonAssociaciaPerson" Association="Self.AssociaciaPerson$PersonAssociaciaPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="AssociaciaPerson" EntitySet="AssociaciaPerson" />
+          </AssociationSet>
+          <AssociationSet Name="AssociaciaPerson$slovar1AssociaciaPerson" Association="Self.AssociaciaPerson$slovar1AssociaciaPerson">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="AssociaciaPerson" EntitySet="AssociaciaPerson" />
+          </AssociationSet>
+          <AssociationSet Name="AssotsiatsiaMain$slovar1AssociaciaMain" Association="Self.AssotsiatsiaMain$slovar1AssociaciaMain">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="AssotsiatsiaMain" EntitySet="AssotsiatsiaMain" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarPerson$PersonSlovarPerson" Association="Self.SlovarPerson$PersonSlovarPerson">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="SlovarPerson" EntitySet="SlovarPerson" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarPerson$slovar1SlovarPerson" Association="Self.SlovarPerson$slovar1SlovarPerson">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="SlovarPerson" EntitySet="SlovarPerson" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarThema$slovar1SlovarThema" Association="Self.SlovarThema$slovar1SlovarThema">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="SlovarThema" EntitySet="SlovarThema" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarThema$ThemaSlovarThema" Association="Self.SlovarThema$ThemaSlovarThema">
+            <End Role="Thema" EntitySet="Thema" />
+            <End Role="SlovarThema" EntitySet="SlovarThema" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SlovarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssociaciaPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slovarid" Type="Int32" />
+          <Property Name="AssociaciaPerson1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Person" Type="Int32" />
+          <Property Name="VotePerson" Type="Int32" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Person1" Relationship="Self.AssociaciaPerson_PersonAssociaciaPerson" FromRole="AssociaciaPerson" ToRole="Person" />
+          <NavigationProperty Name="slovar1" Relationship="Self.AssociaciaPerson_slovar1AssociaciaPerson" FromRole="AssociaciaPerson" ToRole="slovar1" />
+        </EntityType>
+        <EntityType Name="AssotsiatsiaMain">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SlovarId" Type="Int32" />
+          <Property Name="Assotsiatsia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VoteMain" Type="Int32" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="slovar1" Relationship="Self.AssotsiatsiaMain_slovar1AssociaciaMain" FromRole="AssotsiatsiaMain" ToRole="slovar1" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="idPerson" />
+          </Key>
+          <Property Name="idPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="ScurityStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="AssociaciaPersons" Relationship="Self.AssociaciaPerson_PersonAssociaciaPerson" FromRole="Person" ToRole="AssociaciaPerson" />
+          <NavigationProperty Name="SlovarPersons" Relationship="Self.SlovarPerson_PersonSlovarPerson" FromRole="Person" ToRole="SlovarPerson" />
+        </EntityType>
+        <EntityType Name="slovar">
+          <Key>
+            <PropertyRef Name="Код" />
+          </Key>
+          <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="angl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="rus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="asociacia1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="asociacia2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="my" Type="Boolean" />
+          <Property Name="thema" Type="Int32" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="slovar1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="angl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="rus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="transc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssociaciaPersons" Relationship="Self.AssociaciaPerson_slovar1AssociaciaPerson" FromRole="slovar1" ToRole="AssociaciaPerson" />
+          <NavigationProperty Name="AssotsiatsiaMains" Relationship="Self.AssotsiatsiaMain_slovar1AssociaciaMain" FromRole="slovar1" ToRole="AssotsiatsiaMain" />
+          <NavigationProperty Name="SlovarPersons" Relationship="Self.SlovarPerson_slovar1SlovarPerson" FromRole="slovar1" ToRole="SlovarPerson" />
+          <NavigationProperty Name="SlovarThemas" Relationship="Self.SlovarThema_slovar1SlovarThema" FromRole="slovar1" ToRole="SlovarThema" />
+        </EntityType>
+        <EntityType Name="SlovarPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="slovarid" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.SlovarPerson_PersonSlovarPerson" FromRole="SlovarPerson" ToRole="Person" />
+          <NavigationProperty Name="slovar1" Relationship="Self.SlovarPerson_slovar1SlovarPerson" FromRole="SlovarPerson" ToRole="slovar1" />
+        </EntityType>
+        <EntityType Name="SlovarThema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SlovarId" Type="Int32" />
+          <Property Name="ThemaId" Type="Int32" />
+          <NavigationProperty Name="slovar1" Relationship="Self.SlovarThema_slovar1SlovarThema" FromRole="SlovarThema" ToRole="slovar1" />
+          <NavigationProperty Name="Thema" Relationship="Self.SlovarThema_ThemaSlovarThema" FromRole="SlovarThema" ToRole="Thema" />
+        </EntityType>
+        <EntityType Name="Thema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Thema1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SlovarThemas" Relationship="Self.SlovarThema_ThemaSlovarThema" FromRole="Thema" ToRole="SlovarThema" />
+        </EntityType>
+        <Association Name="AssociaciaPerson_PersonAssociaciaPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="AssociaciaPerson" Type="Self.AssociaciaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="idPerson" />
+            </Principal>
+            <Dependent Role="AssociaciaPerson">
+              <PropertyRef Name="Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssociaciaPerson_slovar1AssociaciaPerson">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssociaciaPerson" Type="Self.AssociaciaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AssociaciaPerson">
+              <PropertyRef Name="Slovarid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AssotsiatsiaMain_slovar1AssociaciaMain">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssotsiatsiaMain" Type="Self.AssotsiatsiaMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AssotsiatsiaMain">
+              <PropertyRef Name="SlovarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarPerson_PersonSlovarPerson">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="SlovarPerson" Type="Self.SlovarPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="idPerson" />
+            </Principal>
+            <Dependent Role="SlovarPerson">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarPerson_slovar1SlovarPerson">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1" />
+          <End Role="SlovarPerson" Type="Self.SlovarPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarPerson">
+              <PropertyRef Name="slovarid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarThema_slovar1SlovarThema">
+          <End Role="slovar1" Type="Self.slovar1" Multiplicity="0..1" />
+          <End Role="SlovarThema" Type="Self.SlovarThema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slovar1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarThema">
+              <PropertyRef Name="SlovarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SlovarThema_ThemaSlovarThema">
+          <End Role="Thema" Type="Self.Thema" Multiplicity="0..1" />
+          <End Role="SlovarThema" Type="Self.SlovarThema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SlovarThema">
+              <PropertyRef Name="ThemaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SlovarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssociaciaPersons" EntityType="Self.AssociaciaPerson" />
+          <EntitySet Name="AssotsiatsiaMains" EntityType="Self.AssotsiatsiaMain" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="slovars" EntityType="Self.slovar" />
+          <EntitySet Name="slovar1" EntityType="Self.slovar1" />
+          <EntitySet Name="SlovarPersons" EntityType="Self.SlovarPerson" />
+          <EntitySet Name="SlovarThemas" EntityType="Self.SlovarThema" />
+          <EntitySet Name="Themas" EntityType="Self.Thema" />
+          <AssociationSet Name="AssociaciaPerson_PersonAssociaciaPerson" Association="Self.AssociaciaPerson_PersonAssociaciaPerson">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AssociaciaPerson" EntitySet="AssociaciaPersons" />
+          </AssociationSet>
+          <AssociationSet Name="AssociaciaPerson_slovar1AssociaciaPerson" Association="Self.AssociaciaPerson_slovar1AssociaciaPerson">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="AssociaciaPerson" EntitySet="AssociaciaPersons" />
+          </AssociationSet>
+          <AssociationSet Name="AssotsiatsiaMain_slovar1AssociaciaMain" Association="Self.AssotsiatsiaMain_slovar1AssociaciaMain">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="AssotsiatsiaMain" EntitySet="AssotsiatsiaMains" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarPerson_PersonSlovarPerson" Association="Self.SlovarPerson_PersonSlovarPerson">
+            <End Role="Person" EntitySet="People" />
+            <End Role="SlovarPerson" EntitySet="SlovarPersons" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarPerson_slovar1SlovarPerson" Association="Self.SlovarPerson_slovar1SlovarPerson">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="SlovarPerson" EntitySet="SlovarPersons" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarThema_slovar1SlovarThema" Association="Self.SlovarThema_slovar1SlovarThema">
+            <End Role="slovar1" EntitySet="slovar1" />
+            <End Role="SlovarThema" EntitySet="SlovarThemas" />
+          </AssociationSet>
+          <AssociationSet Name="SlovarThema_ThemaSlovarThema" Association="Self.SlovarThema_ThemaSlovarThema">
+            <End Role="Thema" EntitySet="Themas" />
+            <End Role="SlovarThema" EntitySet="SlovarThemas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SlovarModelContainer" CdmEntityContainer="SlovarEntities">
+          <EntitySetMapping Name="AssociaciaPersons">
+            <EntityTypeMapping TypeName="SlovarModel.AssociaciaPerson">
+              <MappingFragment StoreEntitySet="AssociaciaPerson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Slovarid" ColumnName="Slovarid" />
+                <ScalarProperty Name="AssociaciaPerson1" ColumnName="AssociaciaPerson" />
+                <ScalarProperty Name="Person" ColumnName="Person" />
+                <ScalarProperty Name="VotePerson" ColumnName="VotePerson" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssotsiatsiaMains">
+            <EntityTypeMapping TypeName="SlovarModel.AssotsiatsiaMain">
+              <MappingFragment StoreEntitySet="AssotsiatsiaMain">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SlovarId" ColumnName="SlovarId" />
+                <ScalarProperty Name="Assotsiatsia" ColumnName="Assotsiatsia" />
+                <ScalarProperty Name="VoteMain" ColumnName="VoteMain" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="SlovarModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="idPerson" ColumnName="idPerson" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="ScurityStamp" ColumnName="ScurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slovars">
+            <EntityTypeMapping TypeName="SlovarModel.slovar">
+              <MappingFragment StoreEntitySet="slovar">
+                <ScalarProperty Name="Код" ColumnName="Код" />
+                <ScalarProperty Name="angl" ColumnName="angl" />
+                <ScalarProperty Name="rus" ColumnName="rus" />
+                <ScalarProperty Name="asociacia1" ColumnName="asociacia1" />
+                <ScalarProperty Name="asociacia2" ColumnName="asociacia2" />
+                <ScalarProperty Name="my" ColumnName="my" />
+                <ScalarProperty Name="thema" ColumnName="thema" />
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slovar1">
+            <EntityTypeMapping TypeName="SlovarModel.slovar1">
+              <MappingFragment StoreEntitySet="slovar1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="angl" ColumnName="angl" />
+                <ScalarProperty Name="rus" ColumnName="rus" />
+                <ScalarProperty Name="transc" ColumnName="transc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlovarPersons">
+            <EntityTypeMapping TypeName="SlovarModel.SlovarPerson">
+              <MappingFragment StoreEntitySet="SlovarPerson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="slovarid" ColumnName="slovarid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlovarThemas">
+            <EntityTypeMapping TypeName="SlovarModel.SlovarThema">
+              <MappingFragment StoreEntitySet="SlovarThema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SlovarId" ColumnName="SlovarId" />
+                <ScalarProperty Name="ThemaId" ColumnName="ThemaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themas">
+            <EntityTypeMapping TypeName="SlovarModel.Thema">
+              <MappingFragment StoreEntitySet="Thema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Thema1" ColumnName="Thema" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
